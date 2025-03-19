@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Blender & Other Stuff</title>
+     <style>
+        body {
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 20px;
+            background: #272822; /* Monokai dark gray */
+            color: #F8F8F2; /* Monokai light text */
+        }
+        .item-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .item-block {
+            display: flex;
+            background: #3C3D37; /* Slightly lighter gray for contrast */
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+        .media-container {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            flex-shrink: 0;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .media-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .media-slide.active {
+            opacity: 1;
+        }
+        .media-slide img, .media-slide video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .text-container {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #9e86c8;
+        }
+        p {
+            margin: 0;
+            color: #F8F8F2; /* Monokai light text */
+        }
+
+        a {
+            color: #A6E22E;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #A6E22E;
+            opacity: 0.8;
+        }
+
+        .fullscreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+            background: rgba(39, 40, 34, 0.9); /* Monokai dark with opacity */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .fullscreen .media-slide {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            width: auto;
+            height: auto;
+            opacity: 0;
+        }
+        .fullscreen .media-slide.active {
+            opacity: 1;
+        }
+        .fullscreen .media-slide img, .fullscreen .media-slide video {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+        .slider-dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #797979;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .dot.active {
+            background: #b4d273;
+        }
+        .contact-footer {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: right;
+            color: #F8F8F2;
+        }
+        .title-header {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+            text-align: center;
+            color: #9e86c8;
+        }
+        .title-header h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+    </style>
+</head>
+<body>
+    <header class="title-header">
+        <h1>Some of my parametric 3d-modelling things done in Blender and Python</h1>
+    </header>
+
+    <div class="item-container">
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><video src="images/museum_maze01.webm" muted loop></video></div>
+                <div class="media-slide"><img src="images/museum_maze01.png" alt=""></div>
+                <div class="media-slide"><img src="images/museum_maze02.png" alt=""></div>
+                <div class="media-slide"><img src="images/museum_maze03.jpg" alt=""></div>
+                <div class="media-slide"><img src="images/museum_maze04.jpg" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Museum Maze</h2>
+                <p>Entirely procedural maze of an art-museum. Done with geometry and shading nodes, utilizing a WFC-like maze-generation algorithm.</p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><video src="images/gears01.webm" muted loop></video></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Morphing Gears</h2>
+                <p>A pair of meshing crossed helical gears where the shaft angle changes between 0 and 90 degrees. Animated in Blender. The gears meshes generated using <a href="https://github.com/CadQuery/cadquery">CadQuery</a> & <a href="https://github.com/meadiode/cq_gears">cq_gears</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><img src="images/xmastreev2_01.png" alt=""></div>
+                <div class="media-slide"><video src="images/xmastreev2_01.webm" muted loop></video></div>
+                <div class="media-slide"><img src="images/xmastreev2_02.png" alt=""></div>
+                <div class="media-slide"><img src="images/xmastreev2_03.png" alt=""></div>
+                <div class="media-slide"><img src="images/xmastreev2_04.png" alt=""></div>
+                <div class="media-slide"><img src="images/xmastreev2_05.png" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Collapsible Christmas Tree V2.0</h2>
+                <p>Fully parametric 3D-printable collapsible Christmas tree. Made entirely in Python with CadQuery.
+                    Available for download at <a href="https://www.printables.com/model/347359-collapsible-christmas-tree-v20">printables</a>.
+                </p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><video src="images/butter01.webm" muted loop></video></div>
+                <div class="media-slide"><img src="images/butter01.png" alt=""></div>
+                <div class="media-slide"><img src="images/butter02.png" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Melting Butter</h2>
+                <p>Melting butter animation - all done with geometry nodes.
+                </p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><video src="images/forest01.webm" muted loop></video></div>
+                <div class="media-slide"><video src="images/forest02.webm" muted loop></video></div>
+                <div class="media-slide"><img src="images/forest01.png" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Black Forest</h2>
+                <p>Simplistic scrolling forest background - all done with geometry nodes.
+                </p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><img src="images/crater01.png" alt=""></div>
+                <div class="media-slide"><img src="images/crater02.png" alt=""></div>
+                <div class="media-slide"><img src="images/crater03.png" alt=""></div>
+                <div class="media-slide"><img src="images/crater04.png" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Crater Cracks Coaster</h2>
+                <p>A coaster that resembles earth cracks, like from a volcano or a meteorite.
+                   Modeled using geometry nodes - parametrized size, thickness, pattern etc.
+                </p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><video src="images/zengarden01.webm" muted loop></video></div>
+                <div class="media-slide"><img src="images/zengarden01.jpg" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Zen Garden</h2>
+                <p>A procedural zen garden. 
+                </p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><video src="images/retrowave01.webm" muted loop></video></div>
+                <div class="media-slide"><img src="images/retrowave01.jpg" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Retrowave Scene</h2>
+                <p>A procedural retrowave-style scene. 
+                </p>
+            </div>
+        </div>
+
+        <div class="item-block">
+            <div class="media-container">
+                <div class="media-slide"><video src="images/butterflies01.webm" muted loop></video></div>
+                <div class="media-slide"><img src="images/butterflies01.png" alt=""></div>
+                <div class="media-slide"><img src="images/butterflies02.png" alt=""></div>
+                <div class="slider-dots"></div> <!-- Dots container -->
+            </div>
+            <div class="text-container">
+                <h2>Flock of Butterflies</h2>
+                <p>Procedural flock of butterflies, animation is also done with geometry nodes.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="contact-footer">
+        <p>Contact me: <a href="mailto:meadiode@gmail.com">@meadiode</a></p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.media-container').forEach(container => {
+            const slides = container.querySelectorAll('.media-slide');
+            const originalParent = container.parentNode;
+            const originalSibling = container.nextElementSibling;
+            const dotsContainer = container.querySelector('.slider-dots');
+            let currentSlide = 0;
+            let intervalId;
+            let fullscreen = false;
+
+            /* Dots for manual sliding */
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    clearInterval(intervalId);
+                    setSlide(index);
+                    startSlider();
+                });
+                dotsContainer.appendChild(dot);
+            });
+            const dots = dotsContainer.querySelectorAll('.dot');
+
+            /* Set first slide as active */
+            slides[0].classList.add('active');
+            slides.forEach(slide => {
+                const video = slide.querySelector('video');
+                if (video) video.play();
+            });
+
+            /* Auto slding every 15 sec. */
+            function startSlider() {
+                clearInterval(intervalId);
+                intervalId = setInterval(() => {
+                    setSlide((currentSlide + 1) % slides.length);
+                }, 15000);
+            }
+            startSlider();
+
+            /* Set specific slide */
+            function setSlide(index) {
+                slides[currentSlide].classList.remove('active');
+                dots[currentSlide].classList.remove('active');
+                currentSlide = index;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+            }
+
+            /* Mouse wheel sliding in full screen */
+            container.addEventListener('wheel', (e) => {
+                if (!fullscreen)
+                    return;
+                e.preventDefault(); /* Prevent page scrolling */
+                clearInterval(intervalId); /* Pause auto-slider */
+
+                const direction = e.deltaY > 0 ? 1 : -1;
+                let newIndex = (currentSlide + direction) % slides.length;
+                if (newIndex < 0) newIndex = slides.length - 1;
+                setSlide(newIndex);
+
+                /* Debounce to avoid rapid-fire scrolling */
+                clearTimeout(container.scrollTimeout);
+                container.scrollTimeout = setTimeout(() => {
+                    startSlider(); /* Resume auto-slider after a brief pause */
+                }, 1000); /* Wait 1 second after last scroll */
+            });
+
+            /* Fullscreen toggle on click */
+            container.addEventListener('click', (e) => {
+                if (e.target.classList.contains('dot')) return;
+
+                if (!container.classList.contains('fullscreen')) {
+                    /* Enter fullscreen */
+                    clearInterval(intervalId);
+                    container.classList.add('fullscreen');
+                    document.body.appendChild(container);
+                    slides.forEach(slide => slide.classList.remove('active'));
+                    slides[currentSlide].classList.add('active');
+                    fullscreen = true;
+                } else {
+                    if (currentSlide < (slides.length - 1)) {
+                        setSlide(currentSlide + 1);
+                    } else {
+                        /* Exit fullscreen after the last slide */
+                        container.classList.remove('fullscreen');
+                        if (originalSibling) {
+                            originalParent.insertBefore(container, originalSibling);
+                        } else {
+                            originalParent.appendChild(container);
+                        }
+                        slides.forEach(slide => slide.classList.remove('active'));
+                        slides[currentSlide].classList.add('active');
+                        startSlider();
+                        fullscreen = false;
+                        setSlide(0);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
